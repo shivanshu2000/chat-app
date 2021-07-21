@@ -16,7 +16,10 @@
     </div>
     <div class="inputs__container">
       <label>Email:</label>
-      <input type="email" placeholder="Enter your email" v-model="email" />
+      <input type="text" placeholder="Enter your email" v-model="email" />
+      <div class="input__error" v-if="emailError">
+        {{ emailError }}
+      </div>
     </div>
     <div class="inputs__container">
       <label>Password:</label>
@@ -48,7 +51,7 @@
 <script>
 import { ref } from '@vue/reactivity';
 import useSignup from '@/composables/useSignup';
-import { watch } from '@vue/runtime-core';
+import { watch, onUnmounted } from '@vue/runtime-core';
 
 export default {
   name: 'Signup',
@@ -59,11 +62,26 @@ export default {
     const loading = ref(false);
     const validationError = ref(null);
     const passwordError = ref(null);
+    const emailError = ref(null);
+
     const { error, signup } = useSignup();
 
+    onUnmounted(() => {
+      error.value = null;
+    });
+
     watch(password, () => {
-      if (password.value.length >= 6) {
+      if (password.value.length >= 6 && password.value.length <= 20) {
         passwordError.value = null;
+      }
+    });
+    watch(email, () => {
+      if (
+        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
+          email.value
+        ) === true
+      ) {
+        emailError.value = null;
       }
     });
 
@@ -80,8 +98,18 @@ export default {
         loading.value = false;
         return;
       }
-      if (password.value.length < 6) {
-        passwordError.value = 'Password shoud be atleast 6 characters long';
+
+      if (
+        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
+          email.value
+        ) === false
+      ) {
+        emailError.value = 'Enter a valid email';
+        return;
+      }
+
+      if (password.value.length < 6 || password.value.length > 20) {
+        passwordError.value = 'Password should be 6 to 20 characters long';
         password.value = '';
         return;
       }
@@ -89,7 +117,7 @@ export default {
         loading.value = true;
         await signup(displayName.value, email.value, password.value);
 
-        // displayName.value = '';
+        displayName.value = '';
         email.value = '';
         password.value = '';
 
@@ -107,6 +135,7 @@ export default {
       validationError,
       loading,
       passwordError,
+      emailError,
     };
   },
 };

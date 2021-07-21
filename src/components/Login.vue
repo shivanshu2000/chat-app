@@ -1,5 +1,6 @@
 <template>
   <form @submit.prevent="handleSubmit">
+    <div class="title">Login</div>
     <div class="inputs__container">
       <label>Email :</label>
       <input type="email" placeholder="Enter your email" v-model="email" />

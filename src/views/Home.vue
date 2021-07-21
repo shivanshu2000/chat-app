@@ -21,7 +21,7 @@ export default {
 
 <style>
 .container {
-  background-color: #ccc;
+  background-color: #4d4983;
   min-height: 100vh;
 }
 </style>

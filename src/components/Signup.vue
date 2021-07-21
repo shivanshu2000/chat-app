@@ -85,7 +85,7 @@ input:focus {
 
 .title {
   font-style: italic;
-  color: #4285f4;
+  color: #4d4983;
   font-size: 4.5rem;
   font-family: 'Italianno', cursive;
   font-weight: bold;
@@ -97,7 +97,7 @@ input:focus {
 }
 
 input:focus ::placeholder {
-  color: #4285f4;
+  color: #4d4983;
 }
 
 button {
@@ -107,7 +107,7 @@ button {
   display: block;
   border: none;
   cursor: pointer;
-  background: #4285f4;
+  background: #4d4983;
   color: white;
   padding: 0.7rem 1.2rem;
   border-radius: 25px;
@@ -115,7 +115,7 @@ button {
 }
 
 button:hover {
-  background: #4285f495;
+  background: #4d498395;
 }
 
 .inputs__container {

@@ -1,6 +1,15 @@
 <template>
   <form @submit.prevent="handleSubmit">
     <div class="title">Signup</div>
+    <div v-if="error" class="error">{{ error }}</div>
+    <div v-if="validationError" class="error">
+      {{ validationError }}
+      <span
+        style="margin-left: auto; cursor:pointer"
+        @click="validationError = ''"
+        >X</span
+      >
+    </div>
     <div class="inputs__container">
       <label>Name:</label>
       <input type="text" placeholder="Enter your name" v-model="displayName" />
@@ -16,25 +25,89 @@
         placeholder="Enter your password"
         v-model="password"
       />
+      <div class="input__error" v-if="passwordError">
+        {{ passwordError }}
+      </div>
     </div>
 
-    <button>Sign up</button>
+    <button>
+      {{ loading ? 'Signing up...' : 'Sign up' }}
+    </button>
+
+    <p>
+      Already registerd?
+      <span>
+        <router-link class="links" :to="{ name: 'Login' }"
+          >Login here!</router-link
+        ></span
+      >
+    </p>
   </form>
 </template>
 
 <script>
 import { ref } from '@vue/reactivity';
+import useSignup from '@/composables/useSignup';
+import { watch } from '@vue/runtime-core';
+
 export default {
   name: 'Signup',
   setup() {
     const displayName = ref('');
     const email = ref('');
     const password = ref('');
+    const loading = ref(false);
+    const validationError = ref(null);
+    const passwordError = ref(null);
+    const { error, signup } = useSignup();
 
-    const handleSubmit = () => {
+    watch(password, () => {
+      if (password.value.length >= 6) {
+        passwordError.value = null;
+      }
+    });
+
+    const handleSubmit = async () => {
       console.log('here');
+      passwordError.value = null;
+
+      if (
+        !!displayName.value === false ||
+        !!email.value === false ||
+        !!password.value === false
+      ) {
+        validationError.value = 'All fields are required';
+        loading.value = false;
+        return;
+      }
+      if (password.value.length < 6) {
+        passwordError.value = 'Password shoud be atleast 6 characters long';
+        password.value = '';
+        return;
+      }
+      if (!!displayName.value && !!email.value && !!password.value) {
+        loading.value = true;
+        await signup(displayName.value, email.value, password.value);
+
+        // displayName.value = '';
+        email.value = '';
+        password.value = '';
+
+        loading.value = false;
+        console.log(error);
+        return;
+      }
     };
-    return { displayName, email, password, handleSubmit };
+    return {
+      displayName,
+      email,
+      password,
+      handleSubmit,
+      error,
+      validationError,
+      loading,
+      passwordError,
+    };
   },
 };
 </script>

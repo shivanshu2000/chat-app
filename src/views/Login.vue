@@ -15,6 +15,14 @@
     </div>
 
     <button>Log in</button>
+    <p style="margin-top:1rem">
+      Don't have an account?
+      <span>
+        <router-link class="links" :to="{ name: 'Signup' }"
+          >Register here!</router-link
+        ></span
+      >
+    </p>
   </form>
 </template>
 

@@ -1,5 +1,7 @@
 <template>
-  <router-view />
+  <div class="container">
+    <router-view />
+  </div>
 </template>
 
 <style>
@@ -7,5 +9,11 @@
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+  background-color: #4d4983;
+  padding: 2.5rem;
+  min-height: 100vh;
 }
 </style>

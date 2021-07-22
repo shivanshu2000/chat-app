@@ -51,7 +51,8 @@
 <script>
 import { ref } from '@vue/reactivity';
 import useSignup from '@/composables/useSignup';
-import { watch, onUnmounted } from '@vue/runtime-core';
+import { onUnmounted, watch } from '@vue/runtime-core';
+import { useRouter } from 'vue-router';
 
 export default {
   name: 'Signup',
@@ -65,6 +66,7 @@ export default {
     const emailError = ref(null);
 
     const { error, signup } = useSignup();
+    const router = useRouter();
 
     onUnmounted(() => {
       error.value = null;
@@ -122,7 +124,9 @@ export default {
         password.value = '';
 
         loading.value = false;
-        console.log(error);
+        if (!error.value) {
+          router.push({ name: 'Room' });
+        }
         return;
       }
     };

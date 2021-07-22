@@ -13,7 +13,8 @@
 
 .container {
   background-color: #4d4983;
-  padding: 2.5rem;
+  padding: 4.5rem 2.5rem;
+
   min-height: 100vh;
 }
 </style>

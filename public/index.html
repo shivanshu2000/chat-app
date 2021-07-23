@@ -15,7 +15,19 @@
       href="https://fonts.googleapis.com/css2?family=Italianno&display=swap"
       rel="stylesheet"
     />
-    <title><%= htmlWebpackPlugin.options.title %></title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Italianno&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+      integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+      crossorigin="anonymous"
+    />
+    <title>Chat App</title>
   </head>
   <body>
     <noscript>
@@ -25,7 +37,11 @@
         continue.</strong
       >
     </noscript>
-    <div id="app"></div>
+    <div id="app">
+      <div class="loader__container">
+        <div class="lds-roller"><div></div><div></div><div></div><div>
+      </div>
+    </div>
     <!-- built files will be auto injected -->
   </body>
 </html>

@@ -23,7 +23,7 @@
       />
     </div>
 
-    <button>Log in</button>
+    <button>{{ loading ? 'Logging in...' : 'Log in' }}</button>
     <p style="margin-top:1rem">
       Don't have an account?
       <span>
@@ -46,6 +46,7 @@ export default {
     const email = ref('');
     const password = ref('');
     const validationError = ref(null);
+    const loading = ref(false);
 
     const router = useRouter();
     const { login, error } = useLogin();
@@ -59,18 +60,20 @@ export default {
         return;
       }
       if (!!email.value && !!password.value) {
+        loading.value = true;
         await login(email.value, password.value);
+        loading.value = false;
+
         // email.value = '';
         password.value = '';
         if (!error.value) {
           router.push({ name: 'Room' });
-          console.log('logged in');
         }
         return;
       }
     };
 
-    return { email, password, handleLogin, validationError, error };
+    return { email, password, handleLogin, validationError, error, loading };
   },
 };
 </script>

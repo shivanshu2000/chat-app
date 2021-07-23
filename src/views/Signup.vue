@@ -88,7 +88,6 @@ export default {
     });
 
     const handleSubmit = async () => {
-      console.log('here');
       passwordError.value = null;
 
       if (

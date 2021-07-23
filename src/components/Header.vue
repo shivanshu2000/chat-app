@@ -3,7 +3,7 @@
     <div class="header" v-if="user">
       <!-- <div style="color:white" class="title">Room</div> -->
       <div class="left__items">
-        <p>{{ user.displayName }}</p>
+        <p class="header__name">Hello, {{ user.displayName.split(' ')[0] }}</p>
       </div>
       <div class="right__items">
         <button @click.prevent="handleSignout" style="margin-right:0">
@@ -68,5 +68,25 @@ nav .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.header__name {
+  font-style: italic;
+  color: white;
+  font-size: 2.5rem;
+  letter-spacing: 1.5px;
+  font-family: 'Italianno', cursive;
+  font-weight: bold;
+  margin: 0;
+}
+
+@media only screen and (max-width: 530px) {
+  .left__items {
+    display: none;
+  }
+
+  nav .header {
+    justify-content: flex-end;
+  }
 }
 </style>

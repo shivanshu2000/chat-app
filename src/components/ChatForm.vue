@@ -11,11 +11,15 @@
         ></textarea>
       </div>
       <div class="button__container">
-        <div @click.prevent="handleSubmit">
+        <button
+          :class="{ grey: disable }"
+          :disabled="disable"
+          @click.prevent="handleSubmit"
+        >
           <span class="material-icons send">
             send
           </span>
-        </div>
+        </button>
       </div>
     </div>
   </form>
@@ -26,6 +30,7 @@ import { ref } from '@vue/reactivity';
 import getUser from '../composables/getUser';
 import useCollection from '../composables/useCollection';
 import { timestamp } from '../firebase/config';
+import { watch } from '@vue/runtime-core';
 
 export default {
   name: 'ChatForm',
@@ -34,7 +39,20 @@ export default {
     const { user } = getUser();
     const { addDoc, error } = useCollection('messages');
 
+    const disable = ref(true);
+
+    watch(message, () => {
+      if (message.value.length === 0) {
+        disable.value = true;
+      } else {
+        disable.value = false;
+      }
+    });
     const handleSubmit = async () => {
+      if (message.value.length === 0) {
+        return;
+      }
+
       const chat = {
         message: message.value,
         name: user.value.displayName,
@@ -46,11 +64,9 @@ export default {
       if (!error.value) {
         message.value = '';
       }
-
-      console.log(chat);
     };
 
-    return { message, handleSubmit, error };
+    return { message, handleSubmit, error, disable };
   },
 };
 </script>
@@ -58,15 +74,14 @@ export default {
 <style>
 .chat__form {
   display: flex;
+  background: #d1cfe9;
   border-radius: 7px;
-  flex-direction: column;
-  justify-content: flex-end;
   padding: 7px 1rem;
+  border: none;
 }
 
 .chat__input {
   border: none;
-  /* margin-bottom: 1rem; */
   background: #ffffff;
   max-height: 45px;
   outline: none;
@@ -98,20 +113,25 @@ export default {
   border-radius: 0 25px 25px 0;
 }
 
-.button__container div {
+.button__container button {
   border-radius: 50%;
-  height: 30px;
+  height: 95%;
   padding: 5px;
   display: flex;
+  padding: 5px;
   justify-content: center;
   align-items: center;
-  background-color: #4d4983;
-  width: 30px;
+
+  width: 40px;
   margin-right: 0.5px;
 }
 
 .send {
   color: white;
   cursor: pointer;
+}
+
+.grey {
+  background-color: #ccc;
 }
 </style>

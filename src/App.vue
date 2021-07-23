@@ -14,7 +14,12 @@
 .container {
   background-color: #4d4983;
   padding: 4.5rem 2.5rem;
-
   min-height: 100vh;
+}
+
+@media only screen and (max-width: 450px) {
+  .container {
+    padding: 4.5rem 0.8rem;
+  }
 }
 </style>

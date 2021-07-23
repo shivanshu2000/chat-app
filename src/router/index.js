@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Home from '../views/Home.vue';
 import Login from '../views/Login.vue';
 import Signup from '../views/Signup.vue';
 import Room from '../views/Room.vue';
@@ -42,6 +41,10 @@ const routes = [
     name: 'Signup',
     component: Signup,
     beforeEnter: backAuth,
+  },
+  {
+    path: '/:catchAll(.*)*',
+    redirect: { name: 'Room' },
   },
 ];
 

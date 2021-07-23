@@ -116,7 +116,6 @@ export default {
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
-
   align-items: flex-start;
 }
 
@@ -150,11 +149,10 @@ export default {
   justify-content: space-between;
   align-items: flex-end;
   background: white;
-  padding: 5px 15px;
+  padding: 11px 15px;
   margin: 9px 0;
   border-radius: 23px;
   width: 40%;
-  /* text-align: left; */
 }
 
 .upper__text {

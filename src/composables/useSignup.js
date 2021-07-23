@@ -16,8 +16,11 @@ const signup = async (name, email, password) => {
     error.value = null;
     return user;
   } catch (err) {
-    error.value = err.message;
-    console.log(error.value);
+    if (err.code === 'auth/internal-error') {
+      error.value = 'Something went wrong. Please try again later!';
+    } else {
+      error.value = err.message;
+    }
   }
 };
 

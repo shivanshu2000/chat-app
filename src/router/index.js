@@ -27,8 +27,9 @@ const backAuth = (to, from, next) => {
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home,
+    name: 'Room',
+    component: Room,
+    beforeEnter: requireAuth,
   },
   {
     path: '/login',
@@ -41,12 +42,6 @@ const routes = [
     name: 'Signup',
     component: Signup,
     beforeEnter: backAuth,
-  },
-  {
-    path: '/room',
-    name: 'Room',
-    component: Room,
-    beforeEnter: requireAuth,
   },
 ];
 

@@ -43,7 +43,7 @@ nav {
   color: white;
   padding: 0.3rem 0;
   background: #4d4983;
-  box-shadow: 20px 20px 60px #413e6f, -20px -20px 60px #595497;
+  box-shadow: 10px 10px 60px #413e6f, -20px -20px 60px #595497;
   left: 0;
 }
 
@@ -57,7 +57,6 @@ nav .right__items {
 nav .right__items button {
   background-color: white;
   color: #4d4983;
-  /* padding: 0; */
 }
 
 nav .header {

@@ -7,7 +7,7 @@
           class="chat__input"
           @keypress.enter.prevent="handleSubmit"
           v-model="message"
-          placeholder="type a message..."
+          placeholder="Type a message..."
         ></textarea>
       </div>
       <div class="button__container">
@@ -75,8 +75,8 @@ export default {
 .chat__form {
   display: flex;
   background: #d1cfe9;
-  border-radius: 7px;
-  padding: 7px 1rem;
+  border: none;
+  padding: 7px 0;
   border: none;
 }
 
